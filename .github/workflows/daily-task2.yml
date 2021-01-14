@@ -70,4 +70,4 @@ jobs:
         Ray_Serilog__WriteTo__8__Args__restrictedToMinimumLevel: ${{secrets.PUSHOTHERLEVEL}}
       run: |
         cd ./src/Ray.AutoTask.LiWo/bin/Publish/net5-dependent
-        dotnet Ray.AutoTask.LiWo.dll -closeConsoleWhenEnd=1
+        dotnet Ray.AutoTask.LiWo.dll --closeConsoleWhenEnd=1

@@ -49,6 +49,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{BB21EBB2-4902-41FB-BB20-189ADEBC5B12}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\daily-task.yml = .github\workflows\daily-task.yml
+		.github\workflows\daily-task2.yml = .github\workflows\daily-task2.yml
 	EndProjectSection
 EndProject
 Global
