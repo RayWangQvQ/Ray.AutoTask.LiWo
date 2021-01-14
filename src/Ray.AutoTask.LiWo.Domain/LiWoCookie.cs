@@ -14,7 +14,7 @@ namespace Ray.AutoTask.LiWo.Domain
         {
         }
 
-        public LiWoCookie(IConfiguration configuration) : this(configuration["Cookie"])
+        public LiWoCookie(IConfiguration configuration) : this(configuration["LiWoCookie"])
         {
 
         }

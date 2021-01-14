@@ -1,4 +1,4 @@
-name: daily-task
+name: daily-task2
 
 
 on:
@@ -13,7 +13,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    environment: My
+    environment: PaPa
 
     steps:
 
