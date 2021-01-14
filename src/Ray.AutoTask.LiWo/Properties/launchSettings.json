@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Ray.AutoTask.LiWo": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
