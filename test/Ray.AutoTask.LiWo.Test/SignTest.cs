@@ -12,7 +12,7 @@ namespace Ray.AutoTask.LiWo.Test
     {
         public SignTest()
         {
-            Environment.SetEnvironmentVariable("Cookie","");
+            Environment.SetEnvironmentVariable("Cookie", "");
             Program.Init(null);
         }
 
@@ -24,6 +24,18 @@ namespace Ray.AutoTask.LiWo.Test
             var api = scope.ServiceProvider.GetRequiredService<ISignApi>();
 
             var result = api.DoSign(new SignRequest(), new SignBodyAto()).GetAwaiter().GetResult();
+
+            Debug.WriteLine(result.ToJson());
+        }
+
+        [Fact]
+        public void TestResetSign()
+        {
+            using var scope = Global.ServiceProviderRoot.CreateScope();
+
+            var api = scope.ServiceProvider.GetRequiredService<ISignApi>();
+
+            var result = api.ResetSign(new SignRequest(), new SignBodyAto()).GetAwaiter().GetResult();
 
             Debug.WriteLine(result.ToJson());
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Ray.AutoTask.Infrastructure.Attributes;
 using Ray.Infrastructure;
 using WebApiClientCore;
 using WebApiClientCore.Attributes;
@@ -9,11 +10,14 @@ namespace Ray.AutoTask.LiWo.Domain.SignDomain
 {
     [HttpHost("https://api.m.jd.com/")]
     [Header("Referer", "https://2do.jd.com/events/7-day")]
-    [LoggingFilter]
+    [LogFilter]
     public interface ISignApi : ILiWoApi
     {
         [HttpPost("api/v1/sign/doSign")]
         Task<LiWoResponse<SignResponse>> DoSign([Required][FormContent] SignRequest request, [JsonFormField] SignBodyAto body);
+
+        [HttpPost("api/v1/sign/resetSign")]
+        Task<LiWoResponse<SignResponse>> ResetSign([Required][FormContent] SignRequest request, [JsonFormField] SignBodyAto body);
     }
 
     public class SignRequest

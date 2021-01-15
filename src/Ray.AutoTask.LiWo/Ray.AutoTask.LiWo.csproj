@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Ray.AutoTask.Infrastructure\Ray.AutoTask.Infrastructure.csproj" />
     <ProjectReference Include="..\Ray.AutoTask.LiWo.Domain\Ray.AutoTask.LiWo.Domain.csproj" />
     <ProjectReference Include="..\Ray.Infrastructure\Ray.Infrastructure.csproj" />
     <ProjectReference Include="..\Ray.Serilog.Sinks\Ray.Serilog.Sinks.CoolPushBatched\Ray.Serilog.Sinks.CoolPushBatched.csproj" />

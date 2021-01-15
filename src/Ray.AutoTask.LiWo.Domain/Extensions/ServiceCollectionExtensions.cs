@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Ray.AutoTask.Infrastructure.HttpClientDelegatingHandlers;
 using Ray.AutoTask.LiWo.Domain.SignDomain;
 using Ray.Infrastructure.Extensions;
 
@@ -17,6 +18,13 @@ namespace Ray.AutoTask.LiWo.Domain.Extensions
         public static IServiceCollection AddAgentApis(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton<LiWoCookie>();
+            services.Scan(scan =>
+            {
+                scan.FromAssemblyOf<IntervalDelegatingHandler>()
+                    .AddClasses(c => c.AssignableTo<DelegatingHandler>())
+                    .AsSelf()
+                    .WithTransientLifetime();
+            });
 
             services.AddSingleton<Sign>();
 
@@ -35,7 +43,8 @@ namespace Ray.AutoTask.LiWo.Domain.Extensions
                         CookieContainer = sp.GetRequiredService<LiWoCookie>().CreateCookieContainer(uri)
                     };
                     return handler;
-                });
+                })
+                .AddHttpMessageHandler<IntervalDelegatingHandler>();
 
             return services;
         }

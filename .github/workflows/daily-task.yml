@@ -68,6 +68,11 @@ jobs:
         Ray_Serilog__WriteTo__8__Args__bodyJsonTemplate: ${{secrets.PUSHOTHERBODYJSONTEMPLATE}}
         Ray_Serilog__WriteTo__8__Args__containsTrigger: ${{secrets.PUSHOTHERTRIGGER}}
         Ray_Serilog__WriteTo__8__Args__restrictedToMinimumLevel: ${{secrets.PUSHOTHERLEVEL}}
+        Ray_Security__IsSkipDailyTask: ${{secrets.ISSKIPRUN}}
+        Ray_Security__IntervalSecondsBetweenRequestApi: ${{secrets.INTERVALSECONDSBETWEENREQUESTAPI}}
+        Ray_Security__IntervalMethodTypes: ${{secrets.INTERVALMETHODTYPES}}
+        Ray_Security__UserAgent: ${{secrets.USERAGENT}}
+        Ray_Security__WebProxy: ${{secrets.WEBPROXY}}
       run: |
         cd ./src/Ray.AutoTask.LiWo/bin/Publish/net5-dependent
         dotnet Ray.AutoTask.LiWo.dll --closeConsoleWhenEnd=1

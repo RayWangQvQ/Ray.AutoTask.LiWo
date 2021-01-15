@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Reflection;
 using Newtonsoft.Json;
 
 namespace Ray.Infrastructure.Extensions
@@ -240,5 +242,29 @@ namespace Ray.Infrastructure.Extensions
         }
 
         #endregion IsNotNull and IsNotNullOrEmpty
+
+        /// <summary>获取枚举变量值的 Description 属性</summary>
+        /// <param name="obj">枚举变量</param>
+        /// <param name="isTop">是否改变为返回该类、枚举类型的头 Description 属性，而不是当前的属性或枚举变量值的 Description 属性</param>
+        /// <returns>如果包含 Description 属性，则返回 Description 属性的值，否则返回枚举变量值的名称</returns>
+        public static string Description(this object obj, bool isTop = false)
+        {
+            if (obj == null)
+                return string.Empty;
+            try
+            {
+                Type type = obj.GetType();
+                DescriptionAttribute descriptionAttribute = !isTop ? (DescriptionAttribute)Attribute.GetCustomAttribute((MemberInfo)type.GetField(Enum.GetName(type, obj)), typeof(DescriptionAttribute)) : (DescriptionAttribute)Attribute.GetCustomAttribute((MemberInfo)type, typeof(DescriptionAttribute));
+                if (descriptionAttribute != null)
+                {
+                    if (!string.IsNullOrEmpty(descriptionAttribute.Description))
+                        return descriptionAttribute.Description;
+                }
+            }
+            catch
+            {
+            }
+            return obj.ToString();
+        }
     }
 }

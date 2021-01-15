@@ -10,23 +10,27 @@ namespace Ray.Infrastructure
 {
     public class CookieInfo
     {
-        private readonly string _cookieStr;
-
         public CookieInfo(string cookieStr)
         {
-            _cookieStr = cookieStr;
+            CookieStr = cookieStr ?? "";
 
-            CookieStrList = _cookieStr.Split(";")
+            CookieStrList = CookieStr.Split(";")
                 .Select(x => x.Trim())
                 .Where(x => x.IsNotNullOrEmpty())
                 .ToList();
 
-            CookieDictionary = CookieStrList.ToDictionary(k => k.Split('=')[0], v => v.Split('=')[1]);
+            foreach (var item in CookieStrList)
+            {
+                var list = item.Split('=');
+                CookieDictionary.TryAdd(list[0].Trim(), list[1].Trim());
+            }
         }
+
+        public string CookieStr { get; set; }
 
         public List<string> CookieStrList { get; set; }
 
-        public Dictionary<string, string> CookieDictionary { get; set; }
+        public Dictionary<string, string> CookieDictionary { get; set; } = new Dictionary<string, string>();
 
         public virtual CookieContainer CreateCookieContainer(Uri uri)
         {

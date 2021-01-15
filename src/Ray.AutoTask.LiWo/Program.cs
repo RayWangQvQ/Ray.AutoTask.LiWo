@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Ray.AutoTask.Infrastructure.Options;
 using Ray.AutoTask.LiWo.Domain.Extensions;
 using Ray.AutoTask.LiWo.Domain.SignDomain;
 using Ray.Infrastructure;
@@ -79,6 +82,9 @@ namespace Ray.AutoTask.LiWo
             {
                 Global.ConfigurationRoot = (IConfigurationRoot)hostContext.Configuration;
 
+                services.AddOptions()
+                    .Configure<SecurityOptions>(Global.ConfigurationRoot.GetSection("Security"));
+
                 services.AddAgentApis(hostContext.Configuration);
             });
 
@@ -99,7 +105,7 @@ namespace Ray.AutoTask.LiWo
                 "版本号：Ray.AutoTask.LiWo-v{version}",
                 typeof(Program).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "未知");
             logger.LogInformation("当前环境：{env}", Global.HostingEnvironment.EnvironmentName ?? "无");
-            logger.LogInformation("开源地址：{url} \r\n", "");
+            logger.LogInformation("开源地址：{url} \r\n", "***");
         }
 
         /// <summary>
@@ -109,6 +115,14 @@ namespace Ray.AutoTask.LiWo
         {
             using var scope = Global.ServiceProviderRoot.CreateScope();
             var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+            var securityOptions = scope.ServiceProvider.GetRequiredService<IOptionsMonitor<SecurityOptions>>().CurrentValue;
+
+            int randomMin = new Random().Next(0, securityOptions.RandomSleepMaxMin);
+            if (randomMin > 0)
+            {
+                logger.LogInformation("随机休眠{min}分钟 \r\n", randomMin);
+                Thread.Sleep(randomMin * 1000 * 60);
+            }
 
             try
             {
