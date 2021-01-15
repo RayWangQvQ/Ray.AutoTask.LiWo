@@ -117,6 +117,13 @@ namespace Ray.AutoTask.LiWo
             var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
             var securityOptions = scope.ServiceProvider.GetRequiredService<IOptionsMonitor<SecurityOptions>>().CurrentValue;
 
+            if (securityOptions.IsSkipRun)
+            {
+                logger.LogInformation("已配置为跳过任务");
+                logger.LogInformation("开始推送");
+                return;
+            }
+
             int randomMin = new Random().Next(0, securityOptions.RandomSleepMaxMin);
             if (randomMin > 0)
             {
