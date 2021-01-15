@@ -69,6 +69,7 @@ jobs:
         Ray_Security__IntervalMethodTypes: ${{secrets.INTERVALMETHODTYPES}}
         Ray_Security__UserAgent: ${{secrets.USERAGENT}}
         Ray_Security__WebProxy: ${{secrets.WEBPROXY}}
+        Ray_Security__RandomSleepMaxMin: ${{secrets.RANDOMSLEEPMAXMIN}}
       run: |
         cd ./src/Ray.AutoTask.LiWo/bin/Publish/net5-dependent
         dotnet Ray.AutoTask.LiWo.dll --closeConsoleWhenEnd=1
