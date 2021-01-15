@@ -20,15 +20,14 @@ namespace Ray.AutoTask.LiWo.Domain.SignDomain
         Task<LiWoResponse<SignResponse>> ResetSign([Required][FormContent] SignRequest request, [JsonFormField] SignBodyAto body);
     }
 
-    public class SignRequest
+    public class SignRequest : LiWoRequest
     {
-        public string Appid { get; set; } = "yocial-h5";
-
-        public string FunctionId { get; set; } = "v1_sign_doSign";
-
-        public int LoginType { get; set; } = 2;
-
-        public double T => (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds;
+        public SignRequest()
+        {
+            Appid = "yocial-h5";
+            FunctionId = "v1_sign_doSign";
+            LoginType = 2;
+        }
     }
 
     public class SignBodyAto
