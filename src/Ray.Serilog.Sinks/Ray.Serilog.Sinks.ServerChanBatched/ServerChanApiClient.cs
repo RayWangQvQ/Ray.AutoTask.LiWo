@@ -15,7 +15,7 @@ namespace Ray.Serilog.Sinks.ServerChanBatched
         private readonly string _title;
         private readonly HttpClient _httpClient = new HttpClient();
 
-        public ServerChanApiClient(string scKey, string title = "Ray.BiliBiliTool任务日报")
+        public ServerChanApiClient(string scKey, string title = "任务日报")
         {
             _title = title;
             _apiUrl = new Uri($"{Host}/{scKey}.send");

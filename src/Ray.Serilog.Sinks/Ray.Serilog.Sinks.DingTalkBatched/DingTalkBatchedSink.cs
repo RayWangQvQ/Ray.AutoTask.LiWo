@@ -9,9 +9,11 @@ namespace Ray.Serilog.Sinks.DingTalkBatched
     public class DingTalkBatchedSink : BatchedSink
     {
         private readonly string _webHookUrl;
+        private readonly string _title;
 
         public DingTalkBatchedSink(
             string webHookUrl,
+            string title,
             Predicate<LogEvent> predicate,
             bool sendBatchesAsOneMessages,
             IFormatProvider formatProvider,
@@ -19,6 +21,7 @@ namespace Ray.Serilog.Sinks.DingTalkBatched
             ) : base(predicate, sendBatchesAsOneMessages, formatProvider, minimumLogEventLevel)
         {
             _webHookUrl = webHookUrl;
+            _title = title;
         }
 
         public override void Emit(LogEvent logEvent)
@@ -27,7 +30,7 @@ namespace Ray.Serilog.Sinks.DingTalkBatched
             base.Emit(logEvent);
         }
 
-        protected override IPushService PushService => new DingTalkApiClient(_webHookUrl);
+        protected override IPushService PushService => new DingTalkApiClient(_webHookUrl, _title);
 
         protected override string RenderMessage(LogEvent logEvent)
         {

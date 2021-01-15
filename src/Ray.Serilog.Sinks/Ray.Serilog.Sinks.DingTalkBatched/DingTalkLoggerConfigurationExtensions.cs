@@ -12,6 +12,7 @@ namespace Ray.Serilog.Sinks.DingTalkBatched
         public static LoggerConfiguration DingTalkBatched(
             this LoggerSinkConfiguration loggerSinkConfiguration,
             string webHookUrl,
+            string title,
             string containsTrigger = null,
             bool sendBatchesAsOneMessages = true,
             IFormatProvider formatProvider = null,
@@ -20,12 +21,13 @@ namespace Ray.Serilog.Sinks.DingTalkBatched
         {
             Predicate<LogEvent> predicate = null;
             if (containsTrigger.IsNotNullOrEmpty()) predicate = x => x.MessageTemplate.Text.Contains(containsTrigger);
-            return loggerSinkConfiguration.DingTalkBatched(webHookUrl, predicate, sendBatchesAsOneMessages, formatProvider, restrictedToMinimumLevel);
+            return loggerSinkConfiguration.DingTalkBatched(webHookUrl, title, predicate, sendBatchesAsOneMessages, formatProvider, restrictedToMinimumLevel);
         }
 
         public static LoggerConfiguration DingTalkBatched(
             this LoggerSinkConfiguration loggerSinkConfiguration,
             string webHookUrl,
+            string title,
             Predicate<LogEvent> triggerPredicate = null,
             bool sendBatchesAsOneMessages = true,
             IFormatProvider formatProvider = null,
@@ -33,7 +35,7 @@ namespace Ray.Serilog.Sinks.DingTalkBatched
             )
         {
             if (triggerPredicate == null) triggerPredicate = x => true;
-            return loggerSinkConfiguration.Sink(new DingTalkBatchedSink(webHookUrl, triggerPredicate, sendBatchesAsOneMessages, formatProvider, restrictedToMinimumLevel), restrictedToMinimumLevel);
+            return loggerSinkConfiguration.Sink(new DingTalkBatchedSink(webHookUrl, title, triggerPredicate, sendBatchesAsOneMessages, formatProvider, restrictedToMinimumLevel), restrictedToMinimumLevel);
         }
     }
 }

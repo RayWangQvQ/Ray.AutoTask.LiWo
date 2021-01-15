@@ -9,9 +9,11 @@ namespace Ray.Serilog.Sinks.ServerChanBatched
     public class ServerChanBatchedSink : BatchedSink
     {
         private readonly string _scKey;
+        private readonly string _title;
 
         public ServerChanBatchedSink(
             string scKey,
+            string title,
             Predicate<LogEvent> predicate,
             bool sendBatchesAsOneMessages,
             IFormatProvider formatProvider,
@@ -19,6 +21,7 @@ namespace Ray.Serilog.Sinks.ServerChanBatched
             ) : base(predicate, sendBatchesAsOneMessages, formatProvider, minimumLogEventLevel)
         {
             _scKey = scKey;
+            _title = title;
         }
 
         public override void Emit(LogEvent logEvent)
@@ -27,7 +30,7 @@ namespace Ray.Serilog.Sinks.ServerChanBatched
             base.Emit(logEvent);
         }
 
-        protected override IPushService PushService => new ServerChanApiClient(_scKey);
+        protected override IPushService PushService => new ServerChanApiClient(_scKey, _title);
 
         protected override string RenderMessage(LogEvent logEvent)
         {
