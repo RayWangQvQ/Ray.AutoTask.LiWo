@@ -17,7 +17,7 @@ namespace Ray.AutoTask.LiWo.Domain.SignDomain
         Task<LiWoResponse<SignResponse>> DoSign([Required][FormContent] SignRequest request, [JsonFormField] SignBodyAto body);
 
         [HttpPost("api/v1/sign/resetSign")]
-        Task<LiWoResponse<SignResponse>> ResetSign([Required][FormContent] SignRequest request, [JsonFormField] SignBodyAto body);
+        Task<LiWoResponse<SignResponse>> ResetSign([Required][FormContent] ResetSignRequest request, [JsonFormField] SignBodyAto body);
     }
 
     public class SignRequest : LiWoRequest
@@ -26,6 +26,16 @@ namespace Ray.AutoTask.LiWo.Domain.SignDomain
         {
             Appid = "yocial-h5";
             FunctionId = "v1_sign_doSign";
+            LoginType = 2;
+        }
+    }
+
+    public class ResetSignRequest : LiWoRequest
+    {
+        public ResetSignRequest()
+        {
+            Appid = "yocial-h5";
+            FunctionId = "v1_sign_resetSign";
             LoginType = 2;
         }
     }

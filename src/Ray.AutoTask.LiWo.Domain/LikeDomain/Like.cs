@@ -18,6 +18,10 @@ namespace Ray.AutoTask.LiWo.Domain.LikeDomain
         public void Create()
         {
             _videoApi.GetVideoList(new GetVideoListRequest(), new GetVideoBodyAto());
+
+            /*
+             * sign签名算不出来，放弃了
+             */
         }
     }
 }
