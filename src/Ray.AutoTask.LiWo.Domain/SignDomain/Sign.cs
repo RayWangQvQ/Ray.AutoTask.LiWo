@@ -36,10 +36,10 @@ namespace Ray.AutoTask.LiWo.Domain.SignDomain
             {
                 _logger.LogInformation("自动开启新一轮签到");
 
-                _signApi.ResetSign(new ResetSignRequest(), new SignBodyAto())
+                LiWoResponse<SignResponse> resignResult = _signApi.ResetSign(new ResetSignRequest(), new SignBodyAto())
                     .GetAwaiter().GetResult();
 
-                LogSignResponse(response);
+                LogSignResponse(resignResult);
             }
         }
 
