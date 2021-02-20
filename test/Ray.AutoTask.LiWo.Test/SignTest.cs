@@ -35,7 +35,7 @@ namespace Ray.AutoTask.LiWo.Test
 
             var api = scope.ServiceProvider.GetRequiredService<ISignApi>();
 
-            var result = api.ResetSign(new SignRequest(), new SignBodyAto()).GetAwaiter().GetResult();
+            var result = api.ResetSign(new ResetSignRequest(), new SignBodyAto()).GetAwaiter().GetResult();
 
             Debug.WriteLine(result.ToJson());
         }
